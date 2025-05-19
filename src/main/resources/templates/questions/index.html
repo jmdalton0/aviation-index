@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1>Questions</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="question : ${questions}">
+                        <td th:text="${question.getPosition()}"></td>
+                        <td th:text="${question.getQuestion()}"></td>
+                        <td th:text="${question.getAnswer()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

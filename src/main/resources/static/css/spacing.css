@@ -1,0 +1,47 @@
+.gutters {
+    padding-left: max(8vw, 2rem);
+    padding-right: max(8vw, 2rem);
+}
+
+.mb {
+    margin-bottom: 1rem;
+}
+
+.mr {
+    margin-right: 1rem;
+}
+
+.mr-lg {
+    margin-right: 2rem;
+}
+
+.p {
+    padding: 1rem;
+}
+
+.py {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.pt {
+    padding-top: 1rem;
+}
+
+.pr {
+    padding-right: 1rem;
+}
+
+.p-lg {
+    padding: 2rem;
+}
+
+.py-lg {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.p-sm {
+    padding: 0.5rem;
+}
+

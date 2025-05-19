@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1>Study</h1>
+
+            <div class="center col mb p bg-grey">
+                <h2 th:text="${question.getQuestion()}"></h2>
+
+                <div class="row w-full">
+                    <div class="col grow mr">
+                        <textarea name="user-answer" id="user-answer" class="bg-white p"></textarea>
+                    </div>
+
+                    <div class="relative col grow">
+                        <button id="show-answer-btn" class="absolute h-full btn-grey">Show Answer</button>
+                        <p th:text="${question.getAnswer()}" class="h-full text-start bg-white p"></p>
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" th:action="@{/study/advance}">
+                <button type="submit">Next Question</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

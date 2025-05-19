@@ -1,0 +1,20 @@
+#home-hero {
+    height: 66vh;
+    background-image: url('/img/hero.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+#home-hero h1 {
+    font-size: 5rem;
+    color: var(--white);
+}
+
+#home-hero h2 {
+    color: var(--white);
+}
+
+#user-answer {
+    height: 30vh;
+}

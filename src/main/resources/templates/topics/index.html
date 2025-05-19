@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1>Topics</h1>
+
+            <ul class="col">
+                <li th:each="subTopic : ${subTopics}">
+                    <a
+                        th:href="@{/topics/{id} (id = ${subTopic.getId()})}"
+                        th:text="${subTopic.getTopic()}"
+                    ></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

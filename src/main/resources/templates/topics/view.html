@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <div class="row justify-between">
+                <h1 th:text="${topic.getTopic()}"></h1>
+
+                <form method="POST" th:action="@{/}">
+                    <input id="topicId" type="hidden" th:value="${topic.getId()}">
+                    <button>Study</button>
+                </form>
+            </div>
+
+            <ul class="row">
+                <li>
+                    <p class="row">
+                        <a th:href="@{/topics}">Topics</a>
+                        <span>/</span>
+                    </p>
+                </li>
+
+                <li th:each="parentTopic : ${parentTopics}">
+                    <p class="row">
+                        <a th:href="@{/topics/{id} (id = ${parentTopic.getId()})}" th:text="${parentTopic.getTopic()}"></a>
+                        <span>/</span>
+                    </p>
+                </li>
+
+                <li>
+                    <p class="row">
+                        <a th:href="@{/topics/{id} (id = ${topic.getId()})}" th:text="${topic.getTopic()}"></a>
+                        <span>/</span>
+                    </p>
+                </li>
+            </ul>
+
+            <ul class="col">
+                <li th:each="subTopic : ${subTopics}">
+                    <a th:href="@{/topics/{id} (id = ${subTopic.getId()})}" th:text="${subTopic.getTopic()}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+package com.jmdalton0.aviation_index.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.jmdalton0.aviation_index.data.TopicRepository;
+import com.jmdalton0.aviation_index.models.Topic;
+import com.jmdalton0.aviation_index.services.exceptions.ResourceNotFoundException;
+
+@Service
+public class TopicService {
+
+    private final TopicRepository topicRepository;
+
+    public TopicService(
+        TopicRepository topicRepository
+    ) {
+        this.topicRepository = topicRepository;
+    }
+
+    public List<Topic> findAll() {
+        return topicRepository.findAll();
+    }
+
+    public List<Topic> findByParentId(Long parentId) {
+        return topicRepository.findByParentId(parentId);
+    }
+
+    public List<Topic> findParentsById(Long id) {
+        Topic topic = topicRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(id, "Topic"));
+
+        Long parentId = topic.getParentId();
+        List<Topic> parents = new ArrayList<>();
+        while (parentId != null) {
+            Topic parent = topicRepository.findById(parentId)
+                .orElseThrow(() -> new ResourceNotFoundException(id, "Topic"));
+            
+            parents.add(0, parent);
+            parentId = parent.getParentId();
+        }
+        
+        return parents;
+    }
+
+    public Topic findById(Long id) {
+        return topicRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(id, "Topic"));
+    }
+
+
+}

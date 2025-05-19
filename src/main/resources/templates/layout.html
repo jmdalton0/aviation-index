@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/main.js}" defer></script>
+</head>
+
+<body class="col">
+    <header class="bg-prim">
+        <nav class="row justify-between gutters">
+            <ul class="row">
+                <li>
+                    <a th:href="@{/}" class="py pr">Home</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin}" class="py pr">Admins</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/topics}" class="py pr">Topics</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/questions}" class="py pr">Questions</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/study}" class="py pr">Study</a>
+                </li>
+            </ul>
+
+            <ul class="row">
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="py pl">Login</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <form method="POST" th:action="@{/logout}">
+                        <button type="submit" class="btn-a py pl">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="grow col">
+        <div layout:fragment="content"></div>
+    </main>
+
+    <footer class="col center pt bg-black">
+        <h6>Jesse Dalton</h6>
+        <h6>Grand Canyon University</h6>
+        <h6>CST 451 / 452</h6>
+    </footer>
+</body>
+
+</html>

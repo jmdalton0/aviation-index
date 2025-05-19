@@ -1,0 +1,100 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+}
+
+body {
+    height: 100vh;
+    position: relative;
+}
+
+header {
+    position: sticky;
+    top: 0;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+h5 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+h6 {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+li {
+    font-size: 1rem;
+    list-style-type: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+a {
+    display: block;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+button {
+    font-size: 1rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+input {
+    font-size: 1rem;
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+}
+
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    resize: none;
+    border: none;
+}

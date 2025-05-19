@@ -1,0 +1,51 @@
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.grow {
+    flex: 1;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.justify-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-start {
+    text-align: start;
+}
+
+.align-start {
+    display: flex;
+    align-items: flex-start;
+}
