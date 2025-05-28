@@ -15,9 +15,6 @@
                 <li>
                     <a th:href="@{/}" class="py pr">Home</a>
                 </li>
-                <li sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/admin}" class="py pr">Admins</a>
-                </li>
                 <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/topics}" class="py pr">Topics</a>
                 </li>
@@ -30,6 +27,9 @@
             </ul>
 
             <ul class="row">
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin}" class="py pr">Admins</a>
+                </li>
                 <li sec:authorize="isAnonymous()">
                     <a th:href="@{/login}" class="py pl">Login</a>
                 </li>
@@ -47,9 +47,9 @@
     </main>
 
     <footer class="col center pt bg-black">
-        <h6>Jesse Dalton</h6>
-        <h6>Grand Canyon University</h6>
-        <h6>CST 451 / 452</h6>
+        <h6 class="mb">Jesse Dalton</h6>
+        <h6 class="mb">Grand Canyon University</h6>
+        <h6 class="mb">CST 451 / 452</h6>
     </footer>
 </body>
 

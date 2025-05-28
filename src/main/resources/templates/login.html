@@ -7,13 +7,13 @@
 
 <body>
     <div layout:fragment="content" class="grow center">
-        <h1>Login</h1>
+        <h1 class="mb">Login</h1>
 
         <form method="POST" th:action="@{/login}" class="col align-start mb p-lg bg-grey">
-            <label for="username">Username</label>
+            <label for="username" class="mb-sm">Username</label>
             <input id="username" name="username" type="text" required value="jesse" class="mb">
 
-            <label for="password">Password</label>
+            <label for="password" class="mb-sm">Password</label>
             <input id="password" name="password" type="password" required value="jesse" class="mb">
 
             <p th:if="${error}" th:text="${error}" class="mb text-warning">There was an error</p>

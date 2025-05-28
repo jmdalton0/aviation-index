@@ -8,19 +8,19 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <h1>Study</h1>
+            <h1 class="mb">Study</h1>
 
             <div class="center col mb p bg-grey">
-                <h2 th:text="${question.getQuestion()}"></h2>
+                <h2 th:text="${question.getQuestion()}" class="mb"></h2>
 
-                <div class="row w-full">
+                <div class="row w-1">
                     <div class="col grow mr">
                         <textarea name="user-answer" id="user-answer" class="bg-white p"></textarea>
                     </div>
 
                     <div class="relative col grow">
-                        <button id="show-answer-btn" class="absolute h-full btn-grey">Show Answer</button>
-                        <p th:text="${question.getAnswer()}" class="h-full text-start bg-white p"></p>
+                        <button id="show-answer-btn" class="absolute h-1 btn-grey">Show Answer</button>
+                        <p th:text="${question.getAnswer()}" class="h-1 text-start bg-white p"></p>
                     </div>
                 </div>
             </div>

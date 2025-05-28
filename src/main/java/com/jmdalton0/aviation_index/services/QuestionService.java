@@ -22,6 +22,14 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    public List<Question> findByTopicId(Long topicId) {
+        return questionRepository.findByTopicId(topicId);
+    }
+
+    public List<Question> search(String search) {
+        return questionRepository.findByQuestionContainingIgnoreCaseOrAnswerContainingIgnoreCase(search, search);
+    }
+
     public Question findById(Long id) {
         return questionRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(id, "Question"));

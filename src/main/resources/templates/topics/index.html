@@ -8,10 +8,10 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <h1>Topics</h1>
+            <h1 class="mb">Topics</h1>
 
             <ul class="col">
-                <li th:each="subTopic : ${subTopics}">
+                <li th:each="subTopic : ${subTopics}" class="mt-sm">
                     <a
                         th:href="@{/topics/{id} (id = ${subTopic.getId()})}"
                         th:text="${subTopic.getTopic()}"

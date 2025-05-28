@@ -7,13 +7,13 @@
 
 <body>
     <div layout:fragment="content" class="grow center">
-        <h1>Register</h1>
+        <h1 class="mb">Register</h1>
 
-        <form method="POST" th:action="@{/register}" th:object="${user}" class="col align-start card mb p-lg bg-grey">
-            <label for="username">Username</label>
+        <form method="POST" th:action="@{/register}" th:object="${user}" class="col align-start mb p-lg bg-grey">
+            <label for="username" class="mb-sm">Username</label>
             <input id="username" name="username" type="text" required class="mb">
 
-            <label for="password">Password</label>
+            <label for="password" class="mb-sm">Password</label>
             <input id="password" name="password" type="password" required class="mb">
 
             <p th:if="${error}" th:text="${error}" class="mb text-warning">There was an error</p>

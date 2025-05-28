@@ -8,24 +8,25 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <h1>Questions</h1>
+            <h1 class="mb">Questions</h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="question : ${questions}">
-                        <td th:text="${question.getPosition()}"></td>
-                        <td th:text="${question.getQuestion()}"></td>
-                        <td th:text="${question.getAnswer()}"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="mb">
+                <form method="GET" th:action="@{/questions/search}" class="row">
+                    <input name="search" type="text" placeholder="search" class="mr-sm">
+                    <button type="submit" class="w-fit">Search</button>
+                </form>
+            </div>
+
+            <ul class="col border-t-grey">
+                <li th:each="question: ${questions}" class="row p-sm border-b-grey">
+                    <div class="col w-2">
+                        <p th:text="${question.getQuestion()}"></p>
+                    </div>
+                    <div class="col w-2">
+                        <p th:text="${question.getAnswer()}"></p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </body>

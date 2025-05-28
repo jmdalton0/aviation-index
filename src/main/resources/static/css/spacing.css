@@ -3,12 +3,37 @@
     padding-right: max(8vw, 2rem);
 }
 
+.mx-sm {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.mt {
+    margin-top: 1rem;
+}
+
+.mt-sm {
+    margin-top: 0.5rem;
+}
+
 .mb {
     margin-bottom: 1rem;
 }
 
+.mb-sm {
+    margin-bottom: 0.5rem;
+}
+
+.ml {
+    margin-left: 1rem;
+}
+
 .mr {
     margin-right: 1rem;
+}
+
+.mr-sm {
+    margin-right: 0.5rem;
 }
 
 .mr-lg {
@@ -19,9 +44,22 @@
     padding: 1rem;
 }
 
+.p-sm {
+    padding: 0.5rem;
+}
+
+.p-lg {
+    padding: 2rem;
+}
+
 .py {
     padding-top: 1rem;
     padding-bottom: 1rem;
+}
+
+.py-lg {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .pt {
@@ -31,17 +69,3 @@
 .pr {
     padding-right: 1rem;
 }
-
-.p-lg {
-    padding: 2rem;
-}
-
-.py-lg {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-
-.p-sm {
-    padding: 0.5rem;
-}
-

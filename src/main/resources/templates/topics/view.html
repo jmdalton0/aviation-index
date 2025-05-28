@@ -8,7 +8,7 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <div class="row justify-between">
+            <div class="row justify-between mb">
                 <h1 th:text="${topic.getTopic()}"></h1>
 
                 <form method="POST" th:action="@{/}">
@@ -17,34 +17,59 @@
                 </form>
             </div>
 
-            <ul class="row">
+            <ul class="row mb">
                 <li>
                     <p class="row">
                         <a th:href="@{/topics}">Topics</a>
-                        <span>/</span>
+                        <span class="mx-sm">/</span>
                     </p>
                 </li>
 
                 <li th:each="parentTopic : ${parentTopics}">
                     <p class="row">
-                        <a th:href="@{/topics/{id} (id = ${parentTopic.getId()})}" th:text="${parentTopic.getTopic()}"></a>
-                        <span>/</span>
+                        <a th:href="@{/topics/{id} (id = ${parentTopic.getId()})}"
+                            th:text="${parentTopic.getTopic()}"></a>
+                        <span class="mx-sm">/</span>
                     </p>
                 </li>
 
                 <li>
                     <p class="row">
-                        <a th:href="@{/topics/{id} (id = ${topic.getId()})}" th:text="${topic.getTopic()}"></a>
-                        <span>/</span>
+                        <a
+                            th:href="@{/topics/{id} (id = ${topic.getId()})}"
+                            th:text="${topic.getTopic()}"
+                        ></a>
                     </p>
                 </li>
             </ul>
 
-            <ul class="col">
-                <li th:each="subTopic : ${subTopics}">
-                    <a th:href="@{/topics/{id} (id = ${subTopic.getId()})}" th:text="${subTopic.getTopic()}"></a>
-                </li>
-            </ul>
+            <div class="row">
+                <div class="col h-fit p bg-grey">
+                    <h2>Sub Topics</h2>
+                    <ul class="col">
+                        <li th:each="subTopic : ${subTopics}" class="mt-sm">
+                            <a
+                                th:href="@{/topics/{id} (id = ${subTopic.getId()})}"
+                                th:text="${subTopic.getTopic()}"
+                            ></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col grow p">
+                    <h2 class="mb">Questions</h2>
+                    <ul class="col border-t-grey">
+                        <li th:each="question : ${questions}" class="row p-sm border-b-grey">
+                            <div class="col w-2">
+                                <p th:text="${question.getQuestion()}"></p>
+                            </div>
+                            <div class="col w-2">
+                                <p th:text="${question.getAnswer()}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </body>

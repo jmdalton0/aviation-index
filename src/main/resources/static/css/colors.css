@@ -115,6 +115,18 @@ input {
     color: var(--black);
 }
 
+.border-grey {
+    border: 1px solid var(--grey);
+}
+
+.border-t-grey {
+    border-top: 1px solid var(--grey);
+}
+
+.border-b-grey {
+    border-bottom: 1px solid var(--grey);
+}
+
 .shadow {
     box-shadow: 0 0 8px var(--grey-light);
 }
