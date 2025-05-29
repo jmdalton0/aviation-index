@@ -1,12 +1,5 @@
 USE aviation_index;
 
-DELETE FROM question;
-DELETE FROM topic;
-DELETE FROM user;
-
-INSERT INTO user VALUES
-(null, "jesse", "$2a$10$N6oLJCgM2wSv76F9gss39e7H2rFh2wiHn2qssaOidBotJ.Y76DqRq", "ROLE_ADMIN", null, null, null);
-
 INSERT INTO topic VALUES
 (1, null, "Pilot Qualifications"),
 (2, null, "Weather"),

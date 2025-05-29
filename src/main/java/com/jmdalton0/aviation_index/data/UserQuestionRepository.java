@@ -11,5 +11,5 @@ import com.jmdalton0.aviation_index.models.UserQuestion;
 public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long> {
 
     public Optional<UserQuestion> findByUserIdAndQuestionId(Long userId, Long questionId);
-    
+   
 }

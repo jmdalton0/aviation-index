@@ -16,9 +16,11 @@ public class UserQuestion {
 
     private Long questionId;
 
-    private Status status;
+    private Boolean active;
 
-    enum Status {
+    private Status studyStatus;
+
+    public enum Status {
         NEW, FOCUSED, LEARNING, MASTERED
     }
 
@@ -36,8 +38,12 @@ public class UserQuestion {
         return questionId;
     }
 
-    public Status getStatus() {
-        return status;
+    public Boolean isActive() {
+        return active;
+    }
+
+    public Status getStudyStatus() {
+        return studyStatus;
     }
 
     public void setId(Long id) {
@@ -52,8 +58,12 @@ public class UserQuestion {
         this.questionId = questionId;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public void setStudyStatus(Status studyStatus) {
+        this.studyStatus = studyStatus;
     }
 
 }

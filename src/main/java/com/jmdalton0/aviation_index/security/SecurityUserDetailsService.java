@@ -6,6 +6,7 @@ import java.util.List;
 import com.jmdalton0.aviation_index.data.UserRepository;
 import com.jmdalton0.aviation_index.models.User;
 import com.jmdalton0.aviation_index.security.exceptions.UsernameAlreadyExistsException;
+import com.jmdalton0.aviation_index.services.StudyService;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,12 +23,16 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final StudyService studyService;
+
     SecurityUserDetailsService(
         UserRepository userRepository,
-        PasswordEncoder passwordEncoder
+        PasswordEncoder passwordEncoder,
+        StudyService studyService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.studyService = studyService;
     }
 
     @Override
@@ -53,7 +58,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
 
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        studyService.createUserQuestions(user.getId());
+
+        return user;
     }
 
 }

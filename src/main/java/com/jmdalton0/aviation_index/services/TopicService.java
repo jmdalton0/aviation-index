@@ -30,13 +30,13 @@ public class TopicService {
 
     public List<Topic> findParentsById(Long id) {
         Topic topic = topicRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(id, "Topic"));
+            .orElseThrow(() -> new ResourceNotFoundException("Topic with id " + id + " not found"));
 
         Long parentId = topic.getParentId();
         List<Topic> parents = new ArrayList<>();
         while (parentId != null) {
             Topic parent = topicRepository.findById(parentId)
-                .orElseThrow(() -> new ResourceNotFoundException(id, "Topic"));
+                .orElseThrow(() -> new ResourceNotFoundException("Topic with id " + id + " not found"));
             
             parents.add(0, parent);
             parentId = parent.getParentId();
@@ -47,8 +47,7 @@ public class TopicService {
 
     public Topic findById(Long id) {
         return topicRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(id, "Topic"));
+            .orElseThrow(() -> new ResourceNotFoundException("Topic with id " + id + " not found"));
     }
-
 
 }

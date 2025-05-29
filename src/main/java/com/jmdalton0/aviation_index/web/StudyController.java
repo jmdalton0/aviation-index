@@ -23,7 +23,7 @@ public class StudyController {
     @GetMapping
     public String viewNextQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
-        Question question = service.getNextQuestion(userId);
+        Question question = service.findNextQuestion(userId);
         model.addAttribute("title", "Study");
         model.addAttribute("question", question);
         return "study";

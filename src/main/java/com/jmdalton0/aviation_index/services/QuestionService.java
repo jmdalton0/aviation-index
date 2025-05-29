@@ -32,7 +32,7 @@ public class QuestionService {
 
     public Question findById(Long id) {
         return questionRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(id, "Question"));
+            .orElseThrow(() -> new ResourceNotFoundException("Question with id " + id + " not found"));
     }
    
 }
