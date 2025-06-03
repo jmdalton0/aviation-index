@@ -16,7 +16,7 @@
             <label for="password" class="mb-sm">Password</label>
             <input id="password" name="password" type="password" required value="jesse" class="mb">
 
-            <p th:if="${error}" th:text="${error}" class="mb text-warning">There was an error</p>
+            <p th:if="${error}" th:text="${error}" class="mb text-danger">There was an error</p>
 
             <button type="submit">Login</button>
         </form>

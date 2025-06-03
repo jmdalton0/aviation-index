@@ -6,34 +6,6 @@
     position: absolute;
 }
 
-.w-fit {
-    width: fit-content;
-}
-
-.w-1 {
-    width: 100%;
-}
-
-.w-2 {
-    width: 50%;
-}
-
-.w-4 {
-    width: 25%;
-}
-
-.h-fit {
-    height: fit-content;
-}
-
-.h-1 {
-    height: 100%;
-}
-
-.grow {
-    flex: 1;
-}
-
 .row {
     display: flex;
     flex-direction: row;
@@ -72,4 +44,17 @@
 .align-start {
     display: flex;
     align-items: flex-start;
+}
+
+.btn {
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+    border: none;
+}
+
+.btn:hover {
+    cursor: pointer;
 }

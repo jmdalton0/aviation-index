@@ -33,6 +33,18 @@ public class UserQuestionService {
             .orElseThrow(() -> new ResourceNotFoundException("UserQuestion with userId " + userId + " not found"));
     }
 
+    public UserQuestion findPrevByUserId(Long userId, int curPosition) {
+        return userQuestionRepository.findPrevByUserId(userId, curPosition)
+            .or(() -> userQuestionRepository.findLastByUserId(userId))
+            .orElseThrow(() -> new ResourceNotFoundException("No active UserQuestion was found"));
+    }
+
+    public UserQuestion findNextByUserId(Long userId, int curPosition) {
+        return userQuestionRepository.findNextByUserId(userId, curPosition)
+            .or(() -> userQuestionRepository.findFirstByUserId(userId))
+            .orElseThrow(() -> new ResourceNotFoundException("No active UserQuestion was found"));
+    }
+
     public void save(UserQuestion userQuestion) {
         userQuestionRepository.save(userQuestion);
     }

@@ -22,4 +22,8 @@ public class UserService {
             .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
     }
 
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
 }

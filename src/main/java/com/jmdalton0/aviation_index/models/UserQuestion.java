@@ -1,6 +1,8 @@
 package com.jmdalton0.aviation_index.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +20,7 @@ public class UserQuestion {
 
     private Boolean active;
 
+    @Enumerated(EnumType.STRING)
     private Status studyStatus;
 
     public enum Status {

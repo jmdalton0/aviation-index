@@ -69,7 +69,9 @@ a:hover {
 
 button {
     font-size: 1rem;
+    text-align: center;
     width: 100%;
+    height: fit-content;
     padding: 0.5rem 1rem;
     border: none;
 }

@@ -9,17 +9,11 @@
     --primary: #2c3e50;
     --primary-dark: #233240;
 
-    --secondary: #18bc9c;
-    --secondary-dark: #13967d;
+    --secondary: #c2aa30;
+    --secondary-dark: #b39c2d;
     
-    --warning: #f39c12;
-    --warning-dark: #c27d0e;
-
     --danger: #e74c3c;
     --danger-dark: #b93d30;
-
-    --info: #3498db;
-    --info-dark: #2a7aaf;
 }
 
 html {
@@ -52,8 +46,18 @@ input {
     border: 1px solid var(--grey-dark);
 }
 
-.text-warning {
-    color: var(--warning);
+.text-danger {
+    color: var(--danger);
+}
+
+.btn {
+    background-color: var(--secondary);
+    color: var(--white);
+}
+
+.btn:hover {
+    background-color: var(--secondary-dark);
+    color: var(--white);
 }
 
 .btn-a {

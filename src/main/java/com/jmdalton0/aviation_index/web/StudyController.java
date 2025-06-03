@@ -23,16 +23,23 @@ public class StudyController {
     @GetMapping
     public String viewNextQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
-        Question question = service.findNextQuestion(userId);
+        Question question = service.findStudyQuestion(userId);
         model.addAttribute("title", "Study");
         model.addAttribute("question", question);
         return "study";
     }
 
-    @PostMapping("/advance")
-    public String advanceNextQuestion(Model model) {
+    @PostMapping("/prev")
+    public String previousStudyQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
-        service.advanceNextQuestion(userId);
+        service.prevStudyQuestion(userId);
+        return "redirect:/study";
+    }
+
+    @PostMapping("/next")
+    public String nextStudyQuestion(Model model) {
+        Long userId = SecurityUtil.getAuthenticatedUserId();
+        service.nextStudyQuestion(userId);
         return "redirect:/study";
     }
 

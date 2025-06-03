@@ -60,7 +60,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
         user = userRepository.save(user);
 
-        studyService.createUserQuestions(user.getId());
+        studyService.initUserStudy(user.getId());
 
         return user;
     }

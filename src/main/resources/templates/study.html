@@ -8,26 +8,51 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <h1 class="mb">Study</h1>
+            <div class="row justify-between mb">
+                <h1 class="mb">Study</h1>
 
-            <div class="center col mb p bg-grey">
-                <h2 th:text="${question.getQuestion()}" class="mb"></h2>
-
-                <div class="row w-1">
-                    <div class="col grow mr">
-                        <textarea name="user-answer" id="user-answer" class="bg-white p"></textarea>
-                    </div>
-
-                    <div class="relative col grow">
-                        <button id="show-answer-btn" class="absolute h-1 btn-grey">Show Answer</button>
-                        <p th:text="${question.getAnswer()}" class="h-1 text-start bg-white p"></p>
-                    </div>
+                <div>
+                    <a th:href="@{/study/filters}" class="btn">Filters</a>
                 </div>
             </div>
 
-            <form method="POST" th:action="@{/study/advance}">
-                <button type="submit">Next Question</button>
-            </form>
+            <div id="study-card" class="row mb">
+
+                <div class="col h-1">
+                    <form method="POST" th:action="@{/study/prev}" class="h-1">
+                        <button type="submit" class="col center h-1">
+                            <span class="font-size-xl">&#x3c;</span>
+                            <span>Prev</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="col center w-1 p bg-grey">
+                    <h2 th:text="${question.getQuestion()}" class="mb"></h2>
+
+                    <div class="row w-1 h-1">
+                        <div class="col grow h-1 mr">
+                            <textarea name="user-answer" id="user-answer" class="h-1 bg-white p"></textarea>
+                        </div>
+
+                        <div class="relative col grow h-1">
+                            <button id="show-answer-btn" class="absolute h-1 btn-grey">Show Answer</button>
+                            <p th:text="${question.getAnswer()}" class="h-1 text-start bg-white p"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col h-1">
+                    <form method="POST" th:action="@{/study/next}" class="h-1">
+                        <button type="submit" class="col center h-1">
+                            <span class="font-size-xl">&#x3e;</span>
+                            <span>Next</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </body>
