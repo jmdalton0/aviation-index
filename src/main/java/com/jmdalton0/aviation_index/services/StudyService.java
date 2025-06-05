@@ -42,7 +42,7 @@ public class StudyService {
         userService.save(user);
     }
 
-    public Question findStudyQuestion(Long userId) {
+    public Question getStudyQuestion(Long userId) {
         User user = userService.findById(userId);
         Long studyQuestionId = user.getStudyQuestionId();
 
@@ -51,6 +51,10 @@ public class StudyService {
         }
 
         return questionService.findById(studyQuestionId);
+    }
+
+    public UserQuestion getStudyQuestionStatus(Long userId, Long questionId) {
+        return userQuestionService.findByUserIdAndQuestionId(userId, questionId);
     }
 
     private void updateStudyQuestion(Long userId, boolean next) {

@@ -14,6 +14,15 @@
     
     --danger: #e74c3c;
     --danger-dark: #b93d30;
+
+    --status-new: #0FB4F0;
+    --status-new-dark: #0d7ca4;
+    --status-focused: #f2081f;
+    --status-focused-dark: #b41323;
+    --status-learning: #ec750d;
+    --status-learning-dark: #c06313;
+    --status-mastered: #0cd44b;
+    --status-mastered-dark: #16bf62;
 }
 
 html {
@@ -80,6 +89,54 @@ input {
     background-color: var(--grey-dark);
     color: var(--black);
     border: 1px solid var(--grey-dark);
+}
+
+.btn-status-new {
+    background-color: var(--status-new);
+    color: var(--white);
+    border: 1px solid var(--status-new);
+}
+
+.btn-status-new:hover {
+    background-color: var(--status-new-dark);
+    color: var(--white);
+    border: 1px solid var(--status-new-dark);
+}
+
+.btn-status-focused {
+    background-color: var(--status-focused);
+    color: var(--white);
+    border: 1px solid var(--status-focused);
+}
+
+.btn-status-focused:hover {
+    background-color: var(--status-focused-dark);
+    color: var(--white);
+    border: 1px solid var(--status-focused-dark);
+}
+
+.btn-status-learning {
+    background-color: var(--status-learning);
+    color: var(--white);
+    border: 1px solid var(--status-learning);
+}
+
+.btn-status-learning:hover {
+    background-color: var(--status-learning-dark);
+    color: var(--white);
+    border: 1px solid var(--status-learning-dark);
+}
+
+.btn-status-mastered {
+    background-color: var(--status-mastered);
+    color: var(--white);
+    border: 1px solid var(--status-mastered);
+}
+
+.btn-status-mastered:hover {
+    background-color: var(--status-mastered-dark);
+    color: var(--white);
+    border: 1px solid var(--status-mastered-dark);
 }
 
 .bg-prim {

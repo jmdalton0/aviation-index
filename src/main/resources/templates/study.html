@@ -17,7 +17,6 @@
             </div>
 
             <div id="study-card" class="row mb">
-
                 <div class="col h-1">
                     <form method="POST" th:action="@{/study/prev}" class="h-1">
                         <button type="submit" class="col center h-1">
@@ -50,9 +49,36 @@
                         </button>
                     </form>
                 </div>
-
             </div>
 
+            <div class="mb">
+                <ul th:with="status = ${userQuestion.getStudyStatus().name()}" class="row">
+                    <li class="grow">
+                        <form method="POST" th:action="@{/user-questions/{id} (id = ${userQuestion.getId()})}">
+                            <input type="hidden" name="status" id="status" value="NEW">
+                            <button type="submit" th:class="${status == 'NEW'} ? btn-status-new : btn-grey">New</button>
+                        </form>
+                    </li>
+                    <li class="grow">
+                        <form method="POST" th:action="@{/user-questions/{id} (id = ${userQuestion.getId()})}">
+                            <input type="hidden" name="status" id="status" value="FOCUSED">
+                            <button type="submit" th:class="${status == 'FOCUSED'} ? btn-status-focused: btn-grey">Focused</button>
+                        </form>
+                    </li>
+                    <li class="grow">
+                        <form method="POST" th:action="@{/user-questions/{id} (id = ${userQuestion.getId()})}">
+                            <input type="hidden" name="status" id="status" value="LEARNING">
+                            <button type="submit" th:class="${status == 'LEARNING'} ? btn-status-learning: btn-grey">Learning</button>
+                        </form>
+                    </li>
+                    <li class="grow">
+                        <form method="POST" th:action="@{/user-questions/{id} (id = ${userQuestion.getId()})}">
+                            <input type="hidden" name="status" id="status" value="MASTERED">
+                            <button type="submit" th:class="${status == 'MASTERED'} ? btn-status-mastered: btn-grey">Mastered</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>
