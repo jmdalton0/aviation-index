@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1 class="mb">Reports</h1>
+
+            <div class="center p bg-grey">
+                <h2 class="mb">Overall Progress</h2>
+
+                <div class="row w-1" style="height: 16rem;">
+                    <div class="col grow center justify-end px">
+                        <div
+                            class="w-2 bg-status-new"
+                            th:style="${'height: ' + percNew + '%;'}"
+                        ></div>
+                        <p class="w-1 pt border-t-prim">
+                            <span class="mr">New</span>
+                            <span th:text="${percNew + '%'}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col grow center justify-end px">
+                        <div
+                            class="w-2 bg-status-focused"
+                            th:style="${'height: ' + percFocused + '%;'}"
+                        ></div>
+                        <p class="w-1 pt border-t-prim">
+                            <span class="mr">Focused</span>
+                            <span th:text="${percFocused + '%'}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col grow center justify-end px">
+                        <div
+                            class="w-2 bg-status-learning"
+                            th:style="${'height: ' + percLearning + '%;'}"
+                        ></div>
+                        <p class="w-1 pt border-t-prim">
+                            <span class="mr">Learning</span>
+                            <span th:text="${percLearning + '%'}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col grow center justify-end px">
+                        <div
+                            class="w-2 bg-status-mastered"
+                            th:style="${'height: ' + percMastered + '%;'}"
+                        ></div>
+                        <p class="w-1 pt border-t-prim">
+                            <span class="mr">Mastered</span>
+                            <span th:text="${percMastered + '%'}"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

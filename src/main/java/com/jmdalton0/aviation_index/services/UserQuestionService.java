@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jmdalton0.aviation_index.data.UserQuestionRepository;
 import com.jmdalton0.aviation_index.models.UserQuestion;
+import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 import com.jmdalton0.aviation_index.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -47,6 +48,13 @@ public class UserQuestionService {
 
     public void save(UserQuestion userQuestion) {
         userQuestionRepository.save(userQuestion);
+    }
+
+    public String calcStudyStatusPercentage(Long userId, Status status) {
+        double total = userQuestionRepository.countByUserId(userId);
+        double numStatus = userQuestionRepository.countByUserIdAndStudyStatus(userId, status);
+        double perc = numStatus / total * 100;
+        return String.format("%.2f", perc);
     }
 
 }

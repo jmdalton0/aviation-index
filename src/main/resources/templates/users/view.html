@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <div class="row justify-between mb">
+                <h1>Profile</h1>
+
+                <a th:href="@{/password}" class="w-fit btn">Update Password</a>
+            </div>
+
+            <div class="p bg-grey mb">
+                <div class="row justify-between">
+                    <div class="col">
+                        <p>Username</p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${user.getUsername()}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="justify-end">
+                <a th:href="@{/users/edit}" class="w-fit btn">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

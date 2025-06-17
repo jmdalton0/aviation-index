@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1 class="mb">Filters</h1>
+
+            <form method="POST" th:action="@{/study/filters}" class="p bg-grey">
+                <fieldset class="mb p">
+                    <legend>Study Topic Filter</legend>
+                    <input type="hidden" name="studyTopicId" id="studyTopicId"
+                        th:value="${topic == null ? '' : topic.getId()}">
+                    <input id="study-topic" name="study-topic" type="text"
+                        th:value="${topic == null ? 'All' : topic.getTopic()}" class="w-1 mb-sm">
+                    <button id="clear-study-topic-btn" type="button" th:disabled="${topic == null}" class="btn-danger">Clear</button>
+                </fieldset>
+
+                <fieldset class="mb p">
+                    <legend>Study Status Filter</legend>
+                    <div class="row mb">
+                        <input id="study-status-mastered" name="studyStatus" type="radio" value="MASTERED"
+                            th:checked="${status != null && status.name() == 'MASTERED'}">
+                        <label for="study-status-mastered" class="px-sm">Mastered</label>
+                        <input id="study-status-learning" name="studyStatus" type="radio" value="LEARNING"
+                            th:checked="${status != null && status.name() == 'LEARNING'}">
+                        <label for="study-status-learning" class="px-sm">Learning</label>
+                        <input id="study-status-focused" name="studyStatus" type="radio" value="FOCUSED"
+                            th:checked="${status != null && status.name() == 'FOCUSED'}">
+                        <label for="study-status-focused" class="px-sm">Focused</label>
+                        <input id="study-status-new" name="studyStatus" type="radio" value="NEW"
+                            th:checked="${status != null && status.name() == 'NEW'}">
+                        <label for="study-status-new" class="px-sm">New</label>
+                    </div>
+                    <button id="clear-study-status-btn" type="button" class="btn-danger">Clear</button>
+                </fieldset>
+
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

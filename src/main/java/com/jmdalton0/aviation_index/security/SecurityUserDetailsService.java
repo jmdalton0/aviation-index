@@ -7,6 +7,7 @@ import com.jmdalton0.aviation_index.data.UserRepository;
 import com.jmdalton0.aviation_index.models.User;
 import com.jmdalton0.aviation_index.security.exceptions.UsernameAlreadyExistsException;
 import com.jmdalton0.aviation_index.services.StudyService;
+import com.jmdalton0.aviation_index.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,6 +64,27 @@ public class SecurityUserDetailsService implements UserDetailsService {
         studyService.initUserStudy(user.getId());
 
         return user;
+    }
+
+    public boolean verifyPassword(String password) {
+        Long userId = SecurityUtil.getAuthenticatedUserId();
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User with id: " + userId + " not found"));
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            return true;
+        }
+        return false;
+    }
+
+    public void updatePassword(String password) {
+        Long userId = SecurityUtil.getAuthenticatedUserId();
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User with id: " + userId + " not found"));
+
+        String hashedPassword = passwordEncoder.encode(password);
+        user.setPassword(hashedPassword);
+
+        userRepository.save(user);
     }
 
 }

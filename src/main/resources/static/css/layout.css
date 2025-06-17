@@ -33,6 +33,11 @@
     justify-content: space-between;
 }
 
+.justify-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .text-start {
     text-align: start;
 }
@@ -57,4 +62,8 @@
 
 .btn:hover {
     cursor: pointer;
+}
+
+.btn-a {
+    padding: 0;
 }

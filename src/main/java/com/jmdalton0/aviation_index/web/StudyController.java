@@ -5,9 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmdalton0.aviation_index.models.Question;
+import com.jmdalton0.aviation_index.models.Topic;
 import com.jmdalton0.aviation_index.models.UserQuestion;
+import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 import com.jmdalton0.aviation_index.security.SecurityUtil;
 import com.jmdalton0.aviation_index.services.StudyService;
 
@@ -30,6 +33,37 @@ public class StudyController {
         model.addAttribute("question", question);
         model.addAttribute("userQuestion", userQuestion);
         return "study";
+    }
+
+    @GetMapping("/filters")
+    public String viewFilters(Model model) {
+        Long userId = SecurityUtil.getAuthenticatedUserId();
+        Topic studyTopic = studyService.getStudyTopic(userId);
+        Status studyStatus = studyService.getStudyStatus(userId);
+
+        model.addAttribute("title", "Filters");
+        model.addAttribute("topic", studyTopic);
+        model.addAttribute("status", studyStatus);
+        return "filters";
+    }
+
+    @PostMapping("/filters")
+    public String editFilters(
+        @RequestParam(required = false) Long studyTopicId,
+        @RequestParam(required = false) Status studyStatus,
+        Model model
+    ) {
+        Long userId = SecurityUtil.getAuthenticatedUserId();
+        studyService.setStudyTopic(userId, studyTopicId);
+        studyService.setStudyStatus(userId, studyStatus);
+        return "redirect:/study";
+    }
+
+    @PostMapping("/topic")
+    public String setStudyTopic(@RequestParam(required = false) Long topicId) {
+        Long userId = SecurityUtil.getAuthenticatedUserId();
+        studyService.setStudyTopic(userId, topicId);
+        return "redirect:/study";
     }
 
     @PostMapping("/prev")

@@ -16,6 +16,9 @@
                     <a th:href="@{/}" class="py pr">Home</a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/reports}" class="py pr">Reports</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/topics}" class="py pr">Topics</a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
@@ -29,6 +32,9 @@
             <ul class="row">
                 <li sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/admin}" class="py pr">Admins</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/users}" class="py pr">Profile</a>
                 </li>
                 <li sec:authorize="isAnonymous()">
                     <a th:href="@{/login}" class="py pl">Login</a>

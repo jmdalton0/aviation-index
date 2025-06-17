@@ -80,11 +80,20 @@ button:hover {
     cursor: pointer;
 }
 
-input {
+label {
+    display: block;
+}
+
+input[type="text"],
+input[type="password"] {
     font-size: 1rem;
-    width: 100%;
+    min-width: 16rem;
     padding: 0.5rem;
     border: none;
+}
+
+input[type="text"] {
+    display: block;
 }
 
 textarea {

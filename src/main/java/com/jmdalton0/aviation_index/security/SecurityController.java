@@ -28,13 +28,13 @@ public class SecurityController {
         if (error != null) {
             model.addAttribute("error", "Login Failed");
         }
-        return "login";
+        return "security/login";
     }
 
     @GetMapping("/register")
     public String viewRegister(Model model) {
         model.addAttribute("title", "Register");
-        return "register";
+        return "security/register";
     }
 
     @PostMapping("/register")
@@ -42,10 +42,46 @@ public class SecurityController {
         try {
             securityUserDetailsService.register(user);
         } catch (UsernameAlreadyExistsException e) {
+            model.addAttribute("title", "Register");
             model.addAttribute("error", e.getMessage());
             return "register";
         }
         return "redirect:/login";
     }
 
+    @GetMapping("/password")
+    public String viewEditPassword(
+        @RequestParam(value = "error", required = false) String error,
+        Model model
+    ) {
+        model.addAttribute("title", "Update Password");
+        if (error != null) {
+            model.addAttribute("error", error);
+        }
+        return "security/password";
+    }
+
+    @PostMapping("/password")
+    public String editPassword(
+        @RequestParam(name = "cur-password") String curPassword,
+        @RequestParam(name = "new-password") String newPassword,
+        @RequestParam(name = "confirm-password") String confirmPassword,
+        Model model
+    ) {
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("title", "Update Password");
+            model.addAttribute("error", "Passwords Do Not Match");
+            return "security/password";
+        }
+
+        if (!securityUserDetailsService.verifyPassword(curPassword)) {
+            model.addAttribute("title", "Update Password");
+            model.addAttribute("error", "Current Password Incorrect");
+            return "security/password";
+        }
+
+        securityUserDetailsService.updatePassword(confirmPassword);
+        
+        return "redirect:/users";
+    }
 }

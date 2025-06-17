@@ -21,7 +21,7 @@ public class UserQuestionController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @RequestParam("status") String status) {
+    public String edit(@PathVariable Long id, @RequestParam("status") String status) {
         UserQuestion userQuestion = userQuestionService.findById(id);
         userQuestion.setStudyStatus(Status.valueOf(status));
         userQuestionService.save(userQuestion);

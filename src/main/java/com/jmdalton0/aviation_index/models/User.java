@@ -3,6 +3,8 @@ package com.jmdalton0.aviation_index.models;
 import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ public class User {
 
     private String role;
 
+    @Enumerated(EnumType.STRING)
     private Status studyStatus;
 
     private Long studyTopicId;

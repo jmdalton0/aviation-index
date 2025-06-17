@@ -11,9 +11,9 @@
             <div class="row justify-between mb">
                 <h1 th:text="${topic.getTopic()}"></h1>
 
-                <form method="POST" th:action="@{/}">
-                    <input id="topicId" type="hidden" th:value="${topic.getId()}">
-                    <button>Study</button>
+                <form method="POST" th:action="@{/study/topic}">
+                    <input type="hidden" name="topicId" id="topicId" th:value="${topic.getId()}">
+                    <button type="submit">Study</button>
                 </form>
             </div>
 

@@ -51,12 +51,21 @@ button:hover {
     color: var(--white);
 }
 
-input {
+input[type="text"],
+input[type="password"] {
     border: 1px solid var(--grey-dark);
 }
 
 .text-danger {
     color: var(--danger);
+}
+
+.a-danger {
+    color: var(--danger);
+}
+
+.a-danger:hover {
+    color: var(--danger-dark);
 }
 
 .btn {
@@ -67,6 +76,13 @@ input {
 .btn:hover {
     background-color: var(--secondary-dark);
     color: var(--white);
+}
+
+button:disabled,
+button:disabled:hover {
+    background-color: var(--grey-dark);
+    color: var(--white);
+    cursor: auto;
 }
 
 .btn-a {
@@ -89,6 +105,16 @@ input {
     background-color: var(--grey-dark);
     color: var(--black);
     border: 1px solid var(--grey-dark);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-dark);
+    color: var(--white);
 }
 
 .btn-status-new {
@@ -176,6 +202,22 @@ input {
     color: var(--black);
 }
 
+.bg-status-new {
+    background-color: var(--status-new);
+}
+
+.bg-status-focused {
+    background-color: var(--status-focused);
+}
+
+.bg-status-learning {
+    background-color: var(--status-learning);
+}
+
+.bg-status-mastered {
+    background-color: var(--status-mastered);
+}
+
 .border-grey {
     border: 1px solid var(--grey);
 }
@@ -186,6 +228,18 @@ input {
 
 .border-b-grey {
     border-bottom: 1px solid var(--grey);
+}
+
+.border-prim {
+    border: 1px solid var(--primary);
+}
+
+.border-t-prim {
+    border-top: 1px solid var(--primary);
+}
+
+.border-b-prim {
+    border-bottom: 1px solid var(--primary);
 }
 
 .shadow {

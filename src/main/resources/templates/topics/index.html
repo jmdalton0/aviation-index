@@ -8,7 +8,14 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <h1 class="mb">Topics</h1>
+            <div class="row justify-between mb">
+                <h1>Topics</h1>
+
+                <form method="POST" th:action="@{/study/topic}">
+                    <input type="hidden" name="topicId" id="topicId" value="">
+                    <button type="submit">Study</button>
+                </form>
+            </div>
 
             <ul class="col">
                 <li th:each="subTopic : ${subTopics}" class="mt-sm">
