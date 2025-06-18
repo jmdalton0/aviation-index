@@ -50,5 +50,13 @@ public class TopicController {
         model.addAttribute("questions", questions);
         return "topics/view";
     }
+
+    @GetMapping("/{id}/edit")
+    public String viewEditTopic(@PathVariable Long id, Model model) {
+        Topic topic = topicService.findById(id);
+        model.addAttribute("title", "Edit Topic");
+        model.addAttribute("topic", topic);
+        return "topics/edit";
+    }
     
 }

@@ -34,5 +34,10 @@ public class QuestionService {
         return questionRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Question with id " + id + " not found"));
     }
+
+    public Question findFirst() {
+        return questionRepository.findFirstByOrderByPosition()
+            .orElseThrow(() -> new ResourceNotFoundException("Questions table empty"));
+    }
    
 }

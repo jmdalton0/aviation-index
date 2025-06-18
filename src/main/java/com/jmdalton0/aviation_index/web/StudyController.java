@@ -28,7 +28,12 @@ public class StudyController {
     public String viewStudyQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
         Question question = studyService.getStudyQuestion(userId);
-        UserQuestion userQuestion = studyService.getStudyQuestionStatus(userId, question.getId());
+
+        UserQuestion userQuestion = null;
+        if (question != null) {
+            userQuestion = studyService.getStudyQuestionStatus(userId, question.getId());
+        }
+
         model.addAttribute("title", "Study");
         model.addAttribute("question", question);
         model.addAttribute("userQuestion", userQuestion);

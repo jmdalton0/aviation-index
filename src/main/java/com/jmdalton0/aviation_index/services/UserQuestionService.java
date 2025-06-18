@@ -24,6 +24,10 @@ public class UserQuestionService {
         return userQuestionRepository.findAll();
     }
 
+    public List<UserQuestion> findByUserId(Long userId) {
+        return userQuestionRepository.findByUserId(userId);
+    }
+
     public UserQuestion findById(Long id) {
         return userQuestionRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("UserQuestion with id " + id + " not found"));

@@ -11,10 +11,15 @@
             <div class="row justify-between mb">
                 <h1 th:text="${topic.getTopic()}"></h1>
 
-                <form method="POST" th:action="@{/study/topic}">
-                    <input type="hidden" name="topicId" id="topicId" th:value="${topic.getId()}">
-                    <button type="submit">Study</button>
-                </form>
+                <div class="row">
+                    <a href="" class="btn btn-info">Edit</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+
+                    <form method="POST" th:action="@{/study/topic}">
+                        <input type="hidden" name="topicId" id="topicId" th:value="${topic.getId()}">
+                        <button type="submit">Study</button>
+                    </form>
+                </div>
             </div>
 
             <ul class="row mb">
@@ -35,10 +40,7 @@
 
                 <li>
                     <p class="row">
-                        <a
-                            th:href="@{/topics/{id} (id = ${topic.getId()})}"
-                            th:text="${topic.getTopic()}"
-                        ></a>
+                        <a th:href="@{/topics/{id} (id = ${topic.getId()})}" th:text="${topic.getTopic()}"></a>
                     </p>
                 </li>
             </ul>
@@ -48,10 +50,8 @@
                     <h2>Sub Topics</h2>
                     <ul class="col">
                         <li th:each="subTopic : ${subTopics}" class="mt-sm">
-                            <a
-                                th:href="@{/topics/{id} (id = ${subTopic.getId()})}"
-                                th:text="${subTopic.getTopic()}"
-                            ></a>
+                            <a th:href="@{/topics/{id} (id = ${subTopic.getId()})}"
+                                th:text="${subTopic.getTopic()}"></a>
                         </li>
                     </ul>
                 </div>

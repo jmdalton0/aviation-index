@@ -51,7 +51,7 @@ public class StudyService {
         Long studyQuestionId = user.getStudyQuestionId();
 
         if (studyQuestionId == null) {
-            throw new ResourceNotFoundException("No active UserQuestion was found");
+            return null;
         }
 
         return questionService.findById(studyQuestionId);
@@ -64,6 +64,11 @@ public class StudyService {
     private void updateStudyQuestion(Long userId, boolean next) {
         User user = userService.findById(userId);
         Long curQuestionId = user.getStudyQuestionId();
+
+        if (curQuestionId == null) {
+            curQuestionId = questionService.findFirst().getId();
+        }
+
         try {
             Question curQuestion = questionService.findById(curQuestionId);
             UserQuestion updatedUserQuestion = null;
@@ -117,7 +122,26 @@ public class StudyService {
 
     private void updateStudySession(Long userId) {
         User user = userService.findById(userId);
-        //FIXME
+        Long studyTopicId = user.getStudyTopicId();
+        Status studyStatus = user.getStudyStatus();
+
+        List<UserQuestion> userQuestions = userQuestionService.findByUserId(userId);
+        for (UserQuestion userQuestion : userQuestions) {
+            Question question = questionService.findById(userQuestion.getQuestionId());
+
+            userQuestion.setActive(false);
+
+            if (
+                (studyTopicId == null || topicService.isChild(question.getTopicId(), studyTopicId)) &&
+                (studyStatus == null || userQuestion.getStudyStatus() == studyStatus)
+            ) {
+                userQuestion.setActive(true);
+            }
+
+            userQuestionService.save(userQuestion);
+        }
+
+        nextStudyQuestion(userId);
     }
 
 }

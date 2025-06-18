@@ -1,5 +1,6 @@
 package com.jmdalton0.aviation_index.data;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,8 @@ import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 
 @Repository
 public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long> {
+
+    public List<UserQuestion> findByUserId(Long userId);
 
     public Optional<UserQuestion> findByUserIdAndQuestionId(Long userId, Long questionId);
 

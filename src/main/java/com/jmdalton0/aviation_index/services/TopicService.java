@@ -50,4 +50,15 @@ public class TopicService {
             .orElseThrow(() -> new ResourceNotFoundException("Topic with id " + id + " not found"));
     }
 
+    public boolean isChild(Long childId, Long parentId) {
+        if (childId == null || parentId == null) {
+            return false;
+        } else if (childId == parentId) {
+            return true;
+        } else {
+            Topic child = findById(childId);
+            return isChild(child.getParentId(), parentId);
+        }
+    }
+
 }
