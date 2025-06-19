@@ -28,8 +28,8 @@ CREATE TABLE user (
     study_status VARCHAR(255),
     study_topic_id BIGINT, 
     study_question_id BIGINT, 
-    FOREIGN KEY (study_topic_id) REFERENCES topic(id),
-    FOREIGN KEY (study_question_id) REFERENCES question(id)
+    FOREIGN KEY (study_topic_id) REFERENCES topic(id) ON DELETE SET NULL,
+    FOREIGN KEY (study_question_id) REFERENCES question(id) ON DELETE SET NULL
 );
 
 CREATE TABLE user_question (

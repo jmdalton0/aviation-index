@@ -30,9 +30,6 @@
             </ul>
 
             <ul class="row">
-                <li sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/admin}" class="py pr">Admins</a>
-                </li>
                 <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/users}" class="py pr">Profile</a>
                 </li>

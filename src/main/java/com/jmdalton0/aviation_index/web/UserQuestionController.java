@@ -14,7 +14,7 @@ import com.jmdalton0.aviation_index.services.UserQuestionService;
 @RequestMapping("/user-questions")
 public class UserQuestionController {
 
-    private UserQuestionService userQuestionService;
+    private final UserQuestionService userQuestionService;
     
     public UserQuestionController(UserQuestionService userQuestionService) {
         this.userQuestionService = userQuestionService;

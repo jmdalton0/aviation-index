@@ -61,4 +61,12 @@ public class TopicService {
         }
     }
 
+    public void save(Topic topic) {
+        topicRepository.save(topic);
+    }
+
+    public void delete(Long id) {
+        topicRepository.deleteById(id);
+    }
+
 }

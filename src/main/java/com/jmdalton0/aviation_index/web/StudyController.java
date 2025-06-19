@@ -18,7 +18,7 @@ import com.jmdalton0.aviation_index.services.StudyService;
 @RequestMapping("/study")
 public class StudyController {
 
-    private StudyService studyService;
+    private final StudyService studyService;
 
     public StudyController(StudyService service) {
         this.studyService = service;

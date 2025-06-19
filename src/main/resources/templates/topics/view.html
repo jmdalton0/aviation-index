@@ -12,8 +12,14 @@
                 <h1 th:text="${topic.getTopic()}"></h1>
 
                 <div class="row">
-                    <a href="" class="btn btn-info">Edit</a>
-                    <a href="" class="btn btn-danger">Delete</a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-info"
+                        th:href="@{/topics/edit/{id} (id = ${topic.getId()})}">Edit</a>
+
+                    <form sec:authorize="hasRole('ROLE_ADMIN')" method="POST"
+                        th:action="@{/topics/delete/{id} (id = ${topic.getId()})}">
+                        <input type="hidden" name="topicId" id="topicId" th:value="${topic.getId()}">
+                        <button type="submit" class="btn-danger">Delete</button>
+                    </form>
 
                     <form method="POST" th:action="@{/study/topic}">
                         <input type="hidden" name="topicId" id="topicId" th:value="${topic.getId()}">
@@ -21,6 +27,8 @@
                     </form>
                 </div>
             </div>
+
+            <p th:if="${error != null}" th:text="${error}" class="mb text-danger"></p>
 
             <ul class="row mb">
                 <li>
@@ -65,6 +73,18 @@
                             </div>
                             <div class="col w-2">
                                 <p th:text="${question.getAnswer()}"></p>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-info"
+                                        th:href="@{/questions/edit/{id} (id = ${question.getId()})}">Edit</a>
+
+                                    <form sec:authorize="hasRole('ROLE_ADMIN')" method="POST"
+                                        th:action="@{/questions/delete/{id} (id = ${question.getId()})}">
+                                        <input type="hidden" name="questionId" id="questionId" th:value="${question.getId()}">
+                                        <button type="submit" class="btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </li>
                     </ul>

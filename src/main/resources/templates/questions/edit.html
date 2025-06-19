@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1 class="mb">Edit Question</h1>
+
+            <div class="p bg-grey">
+                <form method="POST" th:action="@{/questions/edit/{id} (id = ${question.getId()})}" class="col mb-sm">
+                    <label for="question" class="mb-sm">Question</label>
+                    <input id="question" name="question" type="text" th:value="${question.getQuestion()}" class="mb">
+
+                    <label for="answer" class="mb-sm">Answer</label>
+                    <input id="answer" name="answer" type="text" th:value="${question.getAnswer()}">
+
+                    <button type="submit" class="mt">Save</button>
+                </form>
+
+                <a th:href="@{/topics/{id} (id = ${question.getTopicId()})}" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

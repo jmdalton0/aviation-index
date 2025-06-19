@@ -39,5 +39,13 @@ public class QuestionService {
         return questionRepository.findFirstByOrderByPosition()
             .orElseThrow(() -> new ResourceNotFoundException("Questions table empty"));
     }
+
+    public void save(Question question) {
+        questionRepository.save(question);
+    }
+
+    public void delete(Long id) {
+        questionRepository.deleteById(id);
+    }
    
 }

@@ -8,8 +8,17 @@
 <body>
     <div layout:fragment="content">
         <div class="gutters py">
-            <h1>Edit Topic</h1>
-            <h2 th:text="${topic.getTopic()}"></h2>
+            <h1 class="mb">Edit Topic</h1>
+
+            <div class="p bg-grey">
+                <form method="POST" th:action="@{/topics/edit/{id} (id = ${topic.getId()})}" class="col mb-sm">
+                    <label for="topic" class="mb-sm">Topic</label>
+                    <input id="topic" name="topic" type="text" th:value="${topic.getTopic()}">
+                    <button type="submit" class="mt">Save</button>
+                </form>
+
+                <a th:href="@{/topics/{id} (id = ${topic.getId()})}" class="btn btn-danger">Cancel</a>
+            </div>
         </div>
     </div>
 </body>
