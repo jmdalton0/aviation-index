@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="gutters py">
+            <h1 class="mb">New Topic</h1>
+
+            <div class="p bg-grey">
+                <form method="POST" th:action="@{/topics/new}" class="col mb-sm">
+                    <input th:unless="${parentId == null}" id="parentId" name="parentId" type="hidden" th:value="${parentId}">
+                    <label for="topic" class="mb-sm">Topic</label>
+                    <input id="topic" name="topic" type="text">
+                    <button type="submit" class="mt">Save</button>
+                </form>
+
+                <a th:href="@{/topics/{id} (id = ${parentId})}" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

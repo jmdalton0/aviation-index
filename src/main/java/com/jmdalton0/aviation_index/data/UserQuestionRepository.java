@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jmdalton0.aviation_index.models.UserQuestion;
 import com.jmdalton0.aviation_index.models.UserQuestion.Status;
@@ -18,9 +20,23 @@ public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long
 
     public Optional<UserQuestion> findByUserIdAndQuestionId(Long userId, Long questionId);
 
-    public long countByUserId(Long userId);
+    public Long countByUserId(Long userId);
 
-    public long countByUserIdAndStudyStatus(Long userId, Status studyStatus);
+    public Long countByUserIdAndStudyStatus(Long userId, Status studyStatus);
+
+    @Transactional
+    public void deleteByQuestionId(Long questionId);
+
+    @Transactional
+    @Modifying
+    @Query(value = """
+        UPDATE user_question
+        SET study_status = 'NEW'
+        WHERE user_id = :userId
+    """, nativeQuery = true)
+    public void reset(
+        @Param("userId") Long userId
+    );
 
     @Query(value = """
         SELECT uq.*

@@ -107,6 +107,16 @@ button:disabled:hover {
     border: 1px solid var(--grey-dark);
 }
 
+.btn-success {
+    background-color: var(--status-mastered);
+    color: var(--white);
+}
+
+.btn-success:hover {
+    background-color: var(--status-mastered-dark);
+    color: var(--white);
+}
+
 .btn-info {
     background-color: var(--status-new);
     color: var(--white);

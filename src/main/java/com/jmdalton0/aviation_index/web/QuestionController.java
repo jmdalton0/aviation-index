@@ -1,6 +1,5 @@
 package com.jmdalton0.aviation_index.web;
 
-import com.jmdalton0.aviation_index.data.QuestionRepository;
 import com.jmdalton0.aviation_index.models.Question;
 import com.jmdalton0.aviation_index.services.QuestionService;
 
@@ -20,7 +19,7 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
-    public QuestionController(QuestionService questionService, QuestionRepository questionRepository) {
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
@@ -40,12 +39,33 @@ public class QuestionController {
         return "questions/index";
     }
 
+    @GetMapping("/new/topic/{topicId}")
+    public String viewNewQuestion(@PathVariable Long topicId, Model model) {
+        model.addAttribute("title", "New Question");
+        model.addAttribute("topicId", topicId);
+        return "questions/new";
+    }
+
     @GetMapping("/edit/{id}")
     public String viewEditQuestion(@PathVariable Long id, Model model) {
         Question question = questionService.findById(id);
         model.addAttribute("title", "Edit Question");
         model.addAttribute("question", question);
         return "questions/edit";
+    }
+
+    @PostMapping("/new")
+    public String newQuestion(
+        @RequestParam Long topicId,
+        @RequestParam String question,
+        @RequestParam String answer 
+    ) {
+        Question q = new Question();
+        q.setTopicId(topicId);
+        q.setQuestion(question);
+        q.setAnswer(answer);
+        questionService.save(q);
+        return "redirect:/topics/" + topicId;
     }
 
     @PostMapping("/edit/{id}")

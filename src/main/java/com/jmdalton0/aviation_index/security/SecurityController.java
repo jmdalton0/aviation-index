@@ -21,7 +21,7 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String viewLogin(
-        @RequestParam(value = "error", required = false) String error,
+        @RequestParam(required = false) String error,
         Model model
     ) {
         model.addAttribute("title", "Login");
@@ -51,7 +51,7 @@ public class SecurityController {
 
     @GetMapping("/password")
     public String viewEditPassword(
-        @RequestParam(value = "error", required = false) String error,
+        @RequestParam(required = false) String error,
         Model model
     ) {
         model.addAttribute("title", "Update Password");

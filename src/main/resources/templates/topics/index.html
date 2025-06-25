@@ -17,7 +17,10 @@
                 </form>
             </div>
 
-            <ul class="col">
+            <ul class="col w-4">
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="mb">
+                    <a th:href="@{/topics/new}" class="btn btn-success">New</a>
+                </li>
                 <li th:each="subTopic : ${subTopics}" class="mt-sm">
                     <a
                         th:href="@{/topics/{id} (id = ${subTopic.getId()})}"

@@ -11,10 +11,10 @@
 
         <form method="POST" th:action="@{/login}" class="col align-start mb p-lg bg-grey">
             <label for="username" class="mb-sm">Username</label>
-            <input id="username" name="username" type="text" required value="jesse" class="mb">
+            <input id="username" name="username" type="text" required class="mb">
 
             <label for="password" class="mb-sm">Password</label>
-            <input id="password" name="password" type="password" required value="jesse" class="mb">
+            <input id="password" name="password" type="password" required class="mb">
 
             <p th:if="${error}" th:text="${error}" class="mb text-danger">There was an error</p>
 

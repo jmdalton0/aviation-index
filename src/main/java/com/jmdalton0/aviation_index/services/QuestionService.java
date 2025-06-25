@@ -11,11 +11,14 @@ import com.jmdalton0.aviation_index.services.exceptions.ResourceNotFoundExceptio
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final UserQuestionService userQuestionService;
 
     public QuestionService(
-        QuestionRepository questionRepository
+        QuestionRepository questionRepository,
+        UserQuestionService userQuestionService
     ) {
         this.questionRepository = questionRepository;
+        this.userQuestionService = userQuestionService;
     }
 
     public List<Question> findAll() {
@@ -40,11 +43,17 @@ public class QuestionService {
             .orElseThrow(() -> new ResourceNotFoundException("Questions table empty"));
     }
 
+    public Long count() {
+        return questionRepository.count();
+    }
+
     public void save(Question question) {
+        question.setPosition((count().intValue()) + 1);
         questionRepository.save(question);
     }
 
     public void delete(Long id) {
+        userQuestionService.deleteQuestion(id);
         questionRepository.deleteById(id);
     }
    

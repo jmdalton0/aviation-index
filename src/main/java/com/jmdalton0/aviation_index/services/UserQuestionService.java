@@ -50,15 +50,23 @@ public class UserQuestionService {
             .orElseThrow(() -> new ResourceNotFoundException("No active UserQuestion was found"));
     }
 
+    public void reset(Long userId) {
+        userQuestionRepository.reset(userId);
+    }
+
     public void save(UserQuestion userQuestion) {
         userQuestionRepository.save(userQuestion);
     }
 
+    public void deleteQuestion(Long questionId) {
+        userQuestionRepository.deleteByQuestionId(questionId);
+    }
+ 
     public String calcStudyStatusPercentage(Long userId, Status status) {
         double total = userQuestionRepository.countByUserId(userId);
         double numStatus = userQuestionRepository.countByUserIdAndStudyStatus(userId, status);
         double perc = numStatus / total * 100;
-        return String.format("%.2f", perc);
+        return "%.2f".formatted(perc);
     }
 
 }

@@ -54,12 +54,41 @@ public class TopicController {
         return "topics/view";
     }
 
+    @GetMapping("/new")
+    public String viewNewTopic(Model model) {
+        model.addAttribute("title", "New Topic");
+        return "topics/new";
+    }
+
+    @GetMapping("/new/parent/{parentId}")
+    public String viewNewTopic(@PathVariable Long parentId, Model model) {
+        model.addAttribute("title", "New Topic");
+        model.addAttribute("parentId", parentId);
+        return "topics/new";
+    }
+
     @GetMapping("/edit/{id}")
     public String viewEditTopic(@PathVariable Long id, Model model) {
         Topic topic = topicService.findById(id);
         model.addAttribute("title", "Edit Topic");
         model.addAttribute("topic", topic);
         return "topics/edit";
+    }
+
+    @PostMapping("/new")
+    public String newTopic(
+        @RequestParam(required = false) Long parentId,
+        @RequestParam String topic
+    ) {
+        Topic t = new Topic();
+        t.setParentId(parentId);
+        t.setTopic(topic);
+        topicService.save(t);
+        if (parentId == null) {
+            return "redirect:/topics";
+        } else {
+            return "redirect:/topics/" + parentId;
+        }
     }
 
     @PostMapping("/edit/{id}")

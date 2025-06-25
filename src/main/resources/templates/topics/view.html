@@ -57,6 +57,9 @@
                 <div class="col h-fit p bg-grey">
                     <h2>Sub Topics</h2>
                     <ul class="col">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="mt-sm">
+                            <a th:href="@{/topics/new/parent/{id} (id = ${topic.getId()})}" class="btn btn-success">New</a>
+                        </li>
                         <li th:each="subTopic : ${subTopics}" class="mt-sm">
                             <a th:href="@{/topics/{id} (id = ${subTopic.getId()})}"
                                 th:text="${subTopic.getTopic()}"></a>
@@ -66,9 +69,13 @@
 
                 <div class="col grow p">
                     <h2 class="mb">Questions</h2>
+
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="mb btn btn-success"
+                        th:href="@{/questions/new/topic/{id} (id = ${topic.getId()})}">New</a>
+
                     <ul class="col border-t-grey">
                         <li th:each="question : ${questions}" class="row p-sm border-b-grey">
-                            <div class="col w-2">
+                            <div class="col w-2 mr">
                                 <p th:text="${question.getQuestion()}"></p>
                             </div>
                             <div class="col w-2">
