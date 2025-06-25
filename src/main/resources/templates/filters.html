@@ -12,7 +12,7 @@
 
             <form method="POST" th:action="@{/study/filters}" class="p bg-grey">
                 <fieldset class="mb p">
-                    <legend>Study Topic Filter</legend>
+                    <legend class="px-sm">Study Topic Filter</legend>
                     <input type="hidden" name="studyTopicId" id="studyTopicId"
                         th:value="${topic == null ? '' : topic.getId()}">
                     <input id="study-topic" name="study-topic" type="text" th:disabled="${topic == null}"
@@ -21,7 +21,7 @@
                 </fieldset>
 
                 <fieldset class="mb p">
-                    <legend>Study Status Filter</legend>
+                    <legend class="px-sm">Study Status Filter</legend>
                     <div class="row mb">
                         <input id="study-status-new" name="studyStatus" type="radio" value="NEW"
                             th:checked="${status != null && status.name() == 'NEW'}">

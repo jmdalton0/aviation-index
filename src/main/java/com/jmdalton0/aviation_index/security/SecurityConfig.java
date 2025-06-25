@@ -17,14 +17,21 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+                
+                // public pages
                 .requestMatchers("/", "/login", "/register", "/css/**", "/img/**").permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/topics").authenticated()
-                .requestMatchers(HttpMethod.GET, "/topics/*").authenticated()
-                .requestMatchers("/topics/**").hasRole("ADMIN")
+                // topics and questions pages available with ROLE_USER 
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/topics",
+                    "/topics/{id:[0-9]+}",
+                    "/questions",
+                    "/questions/search"
+                ).authenticated()
 
-                .requestMatchers(HttpMethod.GET, "/questions").authenticated()
-                .requestMatchers("/questions/**").hasRole("ADMIN")
+                // topics and questions pages available with ROLE_ADMIN
+                .requestMatchers("/topics/**", "/questions/**").hasRole("ADMIN")
 
                 .anyRequest().authenticated()
             )
