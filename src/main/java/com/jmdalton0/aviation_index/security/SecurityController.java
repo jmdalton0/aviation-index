@@ -65,22 +65,15 @@ public class SecurityController {
     public String editPassword(
         @RequestParam(name = "cur-password") String curPassword,
         @RequestParam(name = "new-password") String newPassword,
-        @RequestParam(name = "confirm-password") String confirmPassword,
         Model model
     ) {
-        if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("title", "Update Password");
-            model.addAttribute("error", "Passwords Do Not Match");
-            return "security/password";
-        }
-
         if (!securityUserDetailsService.verifyPassword(curPassword)) {
             model.addAttribute("title", "Update Password");
             model.addAttribute("error", "Current Password Incorrect");
             return "security/password";
         }
 
-        securityUserDetailsService.updatePassword(confirmPassword);
+        securityUserDetailsService.updatePassword(newPassword);
         
         return "redirect:/users";
     }
