@@ -1,5 +1,11 @@
 package com.jmdalton0.aviation_index.web;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +15,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.jmdalton0.aviation_index.security.SecurityConfig;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 @WebMvcTest(HomeController.class)
 @Import(SecurityConfig.class)
-public class HomePageTest {
+public class HomeControllerTest {
 
     @Autowired MockMvc mvc;
 
     @Test
-    @DisplayName("T.1.1.1: Home page loads at GET /")
+    @DisplayName("T.W.1: Home page loads at GET /")
     void homePageLoads() throws Exception {
         mvc.perform(get("/"))
             .andExpect(status().isOk())

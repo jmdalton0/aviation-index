@@ -16,6 +16,9 @@
             <label for="password" class="mb-sm">Password</label>
             <input id="password" name="password" type="password" required class="mb">
 
+            <label for="confirm-password" class="mb-sm">Confirm Password</label>
+            <input id="confirm-password" name="password" type="password" required class="mb">
+
             <p th:if="${error}" th:text="${error}" class="mb text-danger">There was an error</p>
 
             <button type="submit">Register</button>

@@ -30,9 +30,9 @@ public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long
     @Transactional
     @Modifying
     @Query(value = """
-        UPDATE user_question
-        SET study_status = 'NEW'
-        WHERE user_id = :userId
+        UPDATE "user_question"
+        SET "study_status" = 'NEW'
+        WHERE "user_id" = :userId
     """, nativeQuery = true)
     public void reset(
         @Param("userId") Long userId
@@ -40,7 +40,7 @@ public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long
 
     @Query(value = """
         SELECT uq.*
-        FROM user_question uq
+        FROM "user_question" uq
         JOIN question q ON uq.question_id = q.id
         WHERE uq.user_id = :userId
             AND uq.active = true
@@ -53,7 +53,7 @@ public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long
 
     @Query(value = """
         SELECT uq.*
-        FROM user_question uq
+        FROM "user_question" uq
         JOIN question q ON uq.question_id = q.id
         WHERE uq.user_id = :userId
             AND uq.active = true
@@ -66,7 +66,7 @@ public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long
 
     @Query(value = """
         SELECT uq.*
-        FROM user_question uq
+        FROM "user_question" uq
         JOIN question q ON uq.question_id = q.id
         WHERE uq.user_id = :userId
             AND uq.active = true
@@ -81,7 +81,7 @@ public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long
  
     @Query(value = """
         SELECT uq.*
-        FROM user_question uq
+        FROM "user_question" uq
         JOIN question q ON uq.question_id = q.id
         WHERE uq.user_id = :userId
             AND uq.active = true

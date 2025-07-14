@@ -9,7 +9,7 @@ public class SecurityUserDetails extends User {
 
     private Long id;
 
-    SecurityUserDetails(
+    public SecurityUserDetails(
         Long id,
         String username,
         String password,
