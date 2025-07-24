@@ -96,6 +96,7 @@ public class QuestionService {
      * @param question the question to add or update.
      */
     public void save(Question question) {
+        // use the current highest position plus 1 for new question positions
         question.setPosition((count().intValue()) + 1);
         questionRepository.save(question);
     }
@@ -105,6 +106,7 @@ public class QuestionService {
      * @param id the question ID.
      */
     public void delete(Long id) {
+        // deleting a question must also delete all corresponding user questions for all users
         userQuestionService.deleteQuestion(id);
         questionRepository.deleteById(id);
     }

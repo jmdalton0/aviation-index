@@ -126,9 +126,16 @@ public class UserQuestionService {
      * @return the percentage of a user's user questions that have been assigned a specified status.
      */
     public String calcStudyStatusPercentage(Long userId, Status status) {
+
+        // total user questions that belong to the user
         double total = userQuestionRepository.countByUserId(userId);
+
+        // total user questions that belong to the user with the given status
         double numStatus = userQuestionRepository.countByUserIdAndStudyStatus(userId, status);
+
+        // calculated percentage
         double perc = numStatus / total * 100;
+
         return "%.2f".formatted(perc);
     }
 

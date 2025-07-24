@@ -54,16 +54,26 @@ public class TopicService {
      * @return a list of all topics that are a parent of the specified topic.
      */
     public List<Topic> findParentsById(Long id) {
+
+        // find given topic
         Topic topic = topicRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Topic with id " + id + " not found"));
 
+        // find all subsequent parents
         Long parentId = topic.getParentId();
         List<Topic> parents = new ArrayList<>();
+
+        // iterate until a top level topic is found
         while (parentId != null) {
+
+            // find the current topic's parent
             Topic parent = topicRepository.findById(parentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Topic with id " + id + " not found"));
             
+            // add to front of list
             parents.add(0, parent);
+
+            // update current topic to parent topic
             parentId = parent.getParentId();
         }
         
@@ -81,19 +91,25 @@ public class TopicService {
     }
 
     /**
-     * A recursive function that verifies whether a topic is to be considered a child of another topic.
-     * A topic is considered a child of its direct parent, as well as any of that parent topic's parents.
-     * @param childId the potential child topic ID.
+     * A recursive function that indicates whether a topic is to be considered a child of another topic.
+     * A topic is considered a child of its direct parent, as well as any of that parent topic's parents, recursively.
+     * @param currentId initially: the potential child topic ID, during recursion: the placeholder as the method recursively searches the child's parents
      * @param parentId the potential parent topic ID.
      * @return true if the topic is a child of the specified parent topic, else false.
      */
-    public boolean isChild(Long childId, Long parentId) {
-        if (childId == null || parentId == null) {
+    public boolean isChild(Long currentId, Long parentId) {
+
+        // terminate as false if the currentId is ever null, indicating a top level topic has been found
+        if (currentId == null) {
             return false;
-        } else if (childId == parentId) {
+
+        // terminate as true if the currentId ever matches the parentId, indicating the child/parent relationship has been verified
+        } else if (currentId == parentId) {
             return true;
+
+        // update child ID to that child's parent ID, then recurse
         } else {
-            Topic child = findById(childId);
+            Topic child = findById(currentId);
             return isChild(child.getParentId(), parentId);
         }
     }

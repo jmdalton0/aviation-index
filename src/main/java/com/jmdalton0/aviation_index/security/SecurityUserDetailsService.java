@@ -80,11 +80,15 @@ public class SecurityUserDetailsService implements UserDetailsService {
         userRepository.findByUsername(user.getUsername())
             .ifPresent((u) -> { throw new UsernameAlreadyExistsException(u.getUsername()); });
 
+        // use BCrypt to hash new passwords before storage
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // default role for new users is USER
         user.setRole("ROLE_USER");
 
         user = userRepository.save(user);
 
+        // initialize the new user's study session
         studyService.initUserStudy(user.getId());
 
         return user;
@@ -114,6 +118,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException("User with id: " + userId + " not found"));
 
+        // use BCrypt to hash new passwords before storage
         String hashedPassword = passwordEncoder.encode(password);
         user.setPassword(hashedPassword);
 

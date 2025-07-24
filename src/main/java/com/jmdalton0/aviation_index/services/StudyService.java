@@ -52,18 +52,21 @@ public class StudyService {
      * @param userId the authenticated user ID.
      */
     public void initUserStudy(Long userId) {
+        // for all questions
         List<Question> allQuestions = questionService.findAll();
         for (Question question : allQuestions) {
+
+            // create a new user question for this user
             UserQuestion userQuestion = new UserQuestion();
             userQuestion.setUserId(userId);
             userQuestion.setQuestionId(question.getId());
             userQuestion.setActive(true);
-            userQuestion.setStudyStatus(Status.NEW);
+            userQuestion.setStudyStatus(Status.NEW); // default status is NEW
             userQuestionService.save(userQuestion);
         }
 
         User user = userService.findById(userId);
-        user.setStudyQuestionId(allQuestions.get(0).getId());
+        user.setStudyQuestionId(allQuestions.get(0).getId()); // default study question is lowest order question
         userService.save(user);
     }
 
@@ -105,6 +108,7 @@ public class StudyService {
         User user = userService.findById(userId);
         Long curQuestionId = user.getStudyQuestionId();
 
+        // if no current study question exists, use the first active question in the global question order
         if (curQuestionId == null) {
             curQuestionId = questionService.findFirst().getId();
         }
@@ -112,13 +116,20 @@ public class StudyService {
         try {
             Question curQuestion = questionService.findById(curQuestionId);
             UserQuestion updatedUserQuestion = null;
+
+            // next flag is true, find the 'next' question
             if (next) {
                 updatedUserQuestion = userQuestionService.findNextByUserId(userId, curQuestion.getPosition());
+
+            // next flag is false, find the 'previous' question
             } else {
                 updatedUserQuestion = userQuestionService.findPrevByUserId(userId, curQuestion.getPosition());
             }
             user.setStudyQuestionId(updatedUserQuestion.getQuestionId());
+
         } catch (ResourceNotFoundException e) {
+
+            // if no active user question is found, set the current study question to null
             user.setStudyQuestionId(null);
         }
         userService.save(user);
@@ -163,6 +174,8 @@ public class StudyService {
         User user = userService.findById(userId);
         user.setStudyTopicId(topicId);
         userService.save(user);
+
+        // update user's study session with new filters
         updateStudySession(userId);
     }
 
@@ -185,6 +198,8 @@ public class StudyService {
         User user = userService.findById(userId);
         user.setStudyStatus(status);
         userService.save(user);
+
+        // update user's study session with new filters
         updateStudySession(userId);
     }
 
@@ -198,14 +213,26 @@ public class StudyService {
         Long studyTopicId = user.getStudyTopicId();
         Status studyStatus = user.getStudyStatus();
 
+        // for all user questions that belong to this user
         List<UserQuestion> userQuestions = userQuestionService.findByUserId(userId);
         for (UserQuestion userQuestion : userQuestions) {
             Question question = questionService.findById(userQuestion.getQuestionId());
 
+            // initially deactivate
             userQuestion.setActive(false);
 
+            // reactivate if the question matches the user's current study session filters
             if (
+                // set the user question as active if all of the following conditions are met:
+
+                // 1)
+                // if the study topic filter is not set, indicating questions must not be filtered by topic,
+                // or if the question is a child of the current study topic filter
                 (studyTopicId == null || topicService.isChild(question.getTopicId(), studyTopicId)) &&
+
+                // 2)
+                // if the study status filter is not set, indicating questions must not be filtered by study status,
+                // or if the user question's study status match the current study status filter
                 (studyStatus == null || userQuestion.getStudyStatus() == studyStatus)
             ) {
                 userQuestion.setActive(true);
@@ -214,6 +241,8 @@ public class StudyService {
             userQuestionService.save(userQuestion);
         }
 
+        // call the nextStudyQuestion() method to ensure that a question is set as the current study question,
+        // based on the new filters
         nextStudyQuestion(userId);
     }
 
