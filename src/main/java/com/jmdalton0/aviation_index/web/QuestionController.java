@@ -13,16 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * A controller for managing questions.
+ */
 @Controller
 @RequestMapping("/questions")
 public class QuestionController {
 
+    /**
+     * A QuestionService is used to manage questions.
+     */
     private final QuestionService questionService;
 
+    /**
+     * A parameterized constructor.
+     * @param questionService
+     */
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
+    /**
+     * An endpoint to view the questions page.
+     * @param model view model.
+     * @return questions page view.
+     */
     @GetMapping
     public String index(Model model) {
         List<Question> questions = questionService.findAll();
@@ -31,6 +46,12 @@ public class QuestionController {
         return "questions/index";
     }
 
+    /**
+     * An endpoint to view the questions page, filtered by a search term.
+     * @param search the search term filter.
+     * @param model view model.
+     * @return questions page view.
+     */
     @GetMapping("/search")
     public String search(@RequestParam String search, Model model) {
         List<Question> questions = questionService.search(search);
@@ -39,6 +60,12 @@ public class QuestionController {
         return "questions/index";
     }
 
+    /**
+     * An endpoint to view a form for creating a new question.
+     * @param topicId the parent topic ID.
+     * @param model view model.
+     * @return new question form view.
+     */
     @GetMapping("/new/topic/{topicId}")
     public String viewNewQuestion(@PathVariable Long topicId, Model model) {
         model.addAttribute("title", "New Question");
@@ -46,6 +73,12 @@ public class QuestionController {
         return "questions/new";
     }
 
+    /**
+     * An endpoint to view a form for editing a question.
+     * @param id the question ID.
+     * @param model view model.
+     * @return edit question form view.
+     */
     @GetMapping("/edit/{id}")
     public String viewEditQuestion(@PathVariable Long id, Model model) {
         Question question = questionService.findById(id);
@@ -54,6 +87,13 @@ public class QuestionController {
         return "questions/edit";
     }
 
+    /**
+     * An endpoint to create a new question.
+     * @param topicId the parent topic ID.
+     * @param question the new question data.
+     * @param answer the new answer data.
+     * @return redirect to the parent topic view.
+     */
     @PostMapping("/new")
     public String newQuestion(
         @RequestParam Long topicId,
@@ -68,6 +108,13 @@ public class QuestionController {
         return "redirect:/topics/" + topicId;
     }
 
+    /**
+     * An endpoint to edit a question.
+     * @param id the question ID.
+     * @param question the new question data.
+     * @param answer the new answer data.
+     * @return redirect to the parent topic view.
+     */
     @PostMapping("/edit/{id}")
     public String editQuestion(
         @PathVariable Long id,
@@ -81,8 +128,13 @@ public class QuestionController {
         return "redirect:/topics/" + q.getTopicId();
     }
 
+    /**
+     * An endpoint to delete a question.
+     * @param id the question ID.
+     * @return redirect to the parent topic view.
+     */
     @PostMapping("/delete/{id}")
-    public String deleteQuestion(@PathVariable Long id, Model model) {
+    public String deleteQuestion(@PathVariable Long id) {
         Question question = questionService.findById(id);
         questionService.delete(id);
         return "redirect:/topics/" + question.getTopicId();

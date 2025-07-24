@@ -16,13 +16,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * A controller for managing topics.
+ */
 @Controller
 @RequestMapping("/topics")
 public class TopicController {
 
+    /**
+     * A TopicService and QuestionService are used to manage topics and child questions.
+     */
     private final TopicService topicService;
     private final QuestionService questionService;
 
+    /**
+     * A parameterized constructor.
+     * @param topicService
+     * @param questionService
+     */
     public TopicController(
         TopicService topicService,
         QuestionService questionService
@@ -31,6 +42,11 @@ public class TopicController {
         this.questionService = questionService;
     }
 
+    /**
+     * An endpoint to view the top level topics page.
+     * @param model view model.
+     * @return top level topics view.
+     */
     @GetMapping
     public String index(Model model) {
         List<Topic> subTopics = topicService.findByParentId(null);
@@ -39,6 +55,12 @@ public class TopicController {
         return "topics/index";
     }
 
+    /**
+     * An endpoint to view a sub topic page.
+     * @param id the topic ID.
+     * @param model view model.
+     * @return sub topic view.
+     */
     @GetMapping("/{id}")
     public String viewTopic(@PathVariable Long id, Model model) {
         Topic topic = topicService.findById(id);
@@ -53,12 +75,23 @@ public class TopicController {
         return "topics/view";
     }
 
+    /**
+     * An endpoint to view a form for creating a new top level topic.
+     * @param model view model.
+     * @return new top level topic form view.
+     */
     @GetMapping("/new")
     public String viewNewTopic(Model model) {
         model.addAttribute("title", "New Topic");
         return "topics/new";
     }
 
+    /**
+     * An endpoint to view a form for creating a new sub topic.
+     * @param parentId the parent topic ID.
+     * @param model view model.
+     * @return new sub topic form view.
+     */
     @GetMapping("/new/parent/{parentId}")
     public String viewNewTopic(@PathVariable Long parentId, Model model) {
         model.addAttribute("title", "New Topic");
@@ -66,6 +99,12 @@ public class TopicController {
         return "topics/new";
     }
 
+    /**
+     * An endpoint to view a form for editing a topic.
+     * @param id the topic ID.
+     * @param model view model.
+     * @return edit topic form view.
+     */
     @GetMapping("/edit/{id}")
     public String viewEditTopic(@PathVariable Long id, Model model) {
         Topic topic = topicService.findById(id);
@@ -74,6 +113,12 @@ public class TopicController {
         return "topics/edit";
     }
 
+    /**
+     * An endpoint to create a new topic.
+     * @param parentId the parent topic ID.
+     * @param topic the topic data.
+     * @return redirect to the parent topic view.
+     */
     @PostMapping("/new")
     public String newTopic(
         @RequestParam(required = false) Long parentId,
@@ -90,6 +135,12 @@ public class TopicController {
         }
     }
 
+    /**
+     * An endpoint to edit a topic.
+     * @param id the topic ID.
+     * @param topic the topic data.
+     * @return redirect to the topic view.
+     */
     @PostMapping("/edit/{id}")
     public String editTopic(@PathVariable Long id, @RequestParam String topic) {
         Topic t = topicService.findById(id);
@@ -98,6 +149,12 @@ public class TopicController {
         return "redirect:/topics/" + id;
     }
 
+    /**
+     * An endpoint to delete a topic.
+     * @param id the topic ID.
+     * @param model view model.
+     * @return redirect to the parent topic view if successful, else the given topic view.
+     */
     @PostMapping("/delete/{id}")
     public String deleteTopic(@PathVariable Long id, Model model) {
         Topic topic = topicService.findById(id);

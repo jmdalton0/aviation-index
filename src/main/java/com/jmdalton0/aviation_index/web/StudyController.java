@@ -14,16 +14,31 @@ import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 import com.jmdalton0.aviation_index.security.SecurityUtil;
 import com.jmdalton0.aviation_index.services.StudyService;
 
+/**
+ * A controller to manage a user's study session.
+ */
 @Controller
 @RequestMapping("/study")
 public class StudyController {
 
+    /**
+     * A StudyService is used to manage the user's study session.
+     */
     private final StudyService studyService;
 
+    /**
+     * A parameterized constructor.
+     * @param service
+     */
     public StudyController(StudyService service) {
         this.studyService = service;
     }
 
+    /**
+     * An endoint to view the study page with the user's current study question.
+     * @param model view model.
+     * @return study view.
+     */
     @GetMapping
     public String viewStudyQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
@@ -40,6 +55,11 @@ public class StudyController {
         return "study";
     }
 
+    /**
+     * An endopint to view the filters page.
+     * @param model view model.
+     * @return filters view.
+     */
     @GetMapping("/filters")
     public String viewFilters(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
@@ -52,6 +72,13 @@ public class StudyController {
         return "filters";
     }
 
+    /**
+     * An endpoint the update a user's study filters.
+     * @param studyTopicId the new study topic data.
+     * @param studyStatus the new study status data.
+     * @param model view model.
+     * @return redirect to the study view.
+     */
     @PostMapping("/filters")
     public String editFilters(
         @RequestParam(required = false) Long studyTopicId,
@@ -64,6 +91,11 @@ public class StudyController {
         return "redirect:/study";
     }
 
+    /**
+     * An endpoint to update the user's study topic filter.
+     * @param topicId the new study topic data.
+     * @return redirect to the study view.
+     */
     @PostMapping("/topic")
     public String setStudyTopic(@RequestParam(required = false) Long topicId) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
@@ -71,6 +103,11 @@ public class StudyController {
         return "redirect:/study";
     }
 
+    /**
+     * An endpoint to advance the user's study question to the next question.
+     * @param model view model.
+     * @return redirect to the study view.
+     */
     @PostMapping("/prev")
     public String previousStudyQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
@@ -78,6 +115,11 @@ public class StudyController {
         return "redirect:/study";
     }
 
+    /**
+     * An endpoint to advance the user's study question to the next question.
+     * @param model view model.
+     * @return redirect to the study view.
+     */
     @PostMapping("/next")
     public String nextStudyQuestion(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();

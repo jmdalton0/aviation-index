@@ -8,16 +8,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 import com.jmdalton0.aviation_index.security.SecurityUtil;
 
+/**
+ * A controller for managing user study reports.
+ */
 @Controller
 @RequestMapping("/reports")
 public class ReportController {
 
+    /**
+     * A UserQuestionService is used to gather user study information.
+     */
     private final UserQuestionService userQuestionService;
 
+    /**
+     * A parameterized constructor.
+     * @param userQuestionService
+     */
     ReportController(UserQuestionService userQuestionService) {
         this.userQuestionService = userQuestionService;
     }
 
+    /**
+     * An endpoint to view the reports page.
+     * @param model view model.
+     * @return reports view.
+     */
     @GetMapping
     public String index(Model model) {
         Long userId = SecurityUtil.getAuthenticatedUserId();

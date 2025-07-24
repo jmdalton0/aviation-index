@@ -17,15 +17,33 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * A service that manages user security sessions.
+ */
 @Service
 public class SecurityUserDetailsService implements UserDetailsService {
 
+    /**
+     * A BCrypt PasswordEncoder is used to encode user passwords before storage.
+     */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * A UserRepository is used to enact database transactions.
+     */
     private final UserRepository userRepository;
 
+    /**
+     * A StudyService is used to make necessary updates to user study sessions.
+     */
     private final StudyService studyService;
 
+    /**
+     * A parameterized constructor.
+     * @param userRepository
+     * @param passwordEncoder
+     * @param studyService
+     */
     SecurityUserDetailsService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
@@ -52,6 +70,12 @@ public class SecurityUserDetailsService implements UserDetailsService {
         );
     }
 
+    /**
+     * Create a new user.
+     * @param user the new user credentials to be verified an then stored.
+     * @return the new user.
+     * @throws UsernameAlreadyExistsException if the given username already belongs to another existant user.
+     */
     public User register(User user) throws UsernameAlreadyExistsException {
         userRepository.findByUsername(user.getUsername())
             .ifPresent((u) -> { throw new UsernameAlreadyExistsException(u.getUsername()); });
@@ -66,6 +90,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
         return user;
     }
 
+    /**
+     * Verify that the given password matches a user's stored password.
+     * @param password the password to verify.
+     * @return true if the passwords match according to the password encoder, else false.
+     */
     public boolean verifyPassword(String password) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
         User user = userRepository.findById(userId)
@@ -76,6 +105,10 @@ public class SecurityUserDetailsService implements UserDetailsService {
         return false;
     }
 
+    /**
+     * Update a user's password.
+     * @param password the new password.
+     */
     public void updatePassword(String password) {
         Long userId = SecurityUtil.getAuthenticatedUserId();
         User user = userRepository.findById(userId)

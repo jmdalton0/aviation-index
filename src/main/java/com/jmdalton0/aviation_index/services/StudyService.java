@@ -10,14 +10,29 @@ import com.jmdalton0.aviation_index.models.UserQuestion;
 import com.jmdalton0.aviation_index.models.UserQuestion.Status;
 import com.jmdalton0.aviation_index.services.exceptions.ResourceNotFoundException;
 
+/**
+ * A service class that manages study sessions for users.
+ * The study service should be thought of as an abstraction layer
+ * of all other services used to manage study sessions.
+ */
 @Service
 public class StudyService {
 
+    /**
+     * An instance of all other main services is used to control study session operations.
+     */
     private UserService userService;
     private TopicService topicService;
     private QuestionService questionService;
     private UserQuestionService userQuestionService;
 
+    /**
+     * A parameterized constructor.
+     * @param userService
+     * @param topicService
+     * @param questionService
+     * @param userQuestionService
+     */
     public StudyService(
         UserService userService,
         TopicService topicService,
@@ -30,6 +45,12 @@ public class StudyService {
         this.userQuestionService = userQuestionService;
     }
 
+    /**
+     * Initialize a study session for new users.
+     * This includes creating new user questions assigned to the new user for each question.
+     * This also includes setting the new user's current study question.
+     * @param userId the authenticated user ID.
+     */
     public void initUserStudy(Long userId) {
         List<Question> allQuestions = questionService.findAll();
         for (Question question : allQuestions) {
@@ -46,6 +67,11 @@ public class StudyService {
         userService.save(user);
     }
 
+    /**
+     * Get the current study question for the authenticated user.
+     * @param userId the authenticated user ID.
+     * @return the current study question set by this user.
+     */
     public Question getStudyQuestion(Long userId) {
         User user = userService.findById(userId);
         Long studyQuestionId = user.getStudyQuestionId();
@@ -57,10 +83,24 @@ public class StudyService {
         return questionService.findById(studyQuestionId);
     }
 
+    /**
+     * Get the study status of the current study question for the authenticated user.
+     * @param userId the authenticated user ID.
+     * @param questionId the authenticated user's current study question ID.
+     * @return the current study question's associated user question.
+     */
     public UserQuestion getStudyQuestionStatus(Long userId, Long questionId) {
         return userQuestionService.findByUserIdAndQuestionId(userId, questionId);
     }
 
+    /**
+     * Advance the authenticated user's current study question.
+     * This method will set the user's study question to either the next or previous question
+     * based on global question order depending on the 'next' parameter.
+     * This method also respects the user's saved study filters, such as topic (this is handled in the repository layer).
+     * @param userId the authenticated user ID.
+     * @param next a flag that controls if the advancement should move forward or backward with respect to question order.
+     */
     private void updateStudyQuestion(Long userId, boolean next) {
         User user = userService.findById(userId);
         Long curQuestionId = user.getStudyQuestionId();
@@ -84,14 +124,27 @@ public class StudyService {
         userService.save(user);
     }
 
+    /**
+     * Advance the authenticated user's current study question to the previous question.
+     * @param userId the authenticated user ID.
+     */
     public void prevStudyQuestion(Long userId) {
         updateStudyQuestion(userId, false);
     }
 
+    /**
+     * Advance the authenticated user's current study question to the previous question.
+     * @param userId the authenticated user ID.
+     */
     public void nextStudyQuestion(Long userId) {
         updateStudyQuestion(userId, true);
     }
 
+    /**
+     * Get the authenticated user's current study topic filter.
+     * @param userId the authenticated user ID.
+     * @return the authenticated user's current study topic.
+     */
     public Topic getStudyTopic(Long userId) {
         User user = userService.findById(userId);
         Long studyTopicId = user.getStudyTopicId();
@@ -101,6 +154,11 @@ public class StudyService {
         return topicService.findById(studyTopicId);
     }
 
+    /**
+     * Update the authenticated user's current study topic filter.
+     * @param userId the authenticated user ID.
+     * @param topicId the new study topic ID.
+     */
     public void setStudyTopic(Long userId, Long topicId) {
         User user = userService.findById(userId);
         user.setStudyTopicId(topicId);
@@ -108,11 +166,21 @@ public class StudyService {
         updateStudySession(userId);
     }
 
+    /**
+     * Get the authenticated user's current study status filter.
+     * @param userId the authenticated user ID.
+     * @return the authenticated user's current study status.
+     */
     public Status getStudyStatus(Long userId) {
         User user = userService.findById(userId);
         return user.getStudyStatus();
     }
 
+    /**
+     * Update the authenticated user's current study status filter.
+     * @param userId the authenticated user ID.
+     * @param status the new study status.
+     */
     public void setStudyStatus(Long userId, Status status) {
         User user = userService.findById(userId);
         user.setStudyStatus(status);
@@ -120,6 +188,11 @@ public class StudyService {
         updateStudySession(userId);
     }
 
+    /**
+     * A helper method to perform study session changes when a user updates their study session.
+     * This method activates and deactivates user questions according to the user's updated study filters.
+     * @param userId the athenticated user ID.
+     */
     private void updateStudySession(Long userId) {
         User user = userService.findById(userId);
         Long studyTopicId = user.getStudyTopicId();

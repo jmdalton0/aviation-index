@@ -10,9 +10,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Spring Security configuration class.
+ */
 @Configuration
 public class SecurityConfig {
 
+    /**
+     * The filter chain that specifies the security rules for the application.
+     * The home, login, and register pages are public.
+     * Users can access the majority of pages.
+     * Admins only can access pages that allow making changes to the aviation knowledge content.
+     * @param http Injected by Spring
+     * @return the configured httpSecurity object
+     * @throws Exception
+     */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -33,22 +45,28 @@ public class SecurityConfig {
                 // topics and questions pages available with ROLE_ADMIN
                 .requestMatchers("/topics/**", "/questions/**").hasRole("ADMIN")
 
+                // all other pages require authentication
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
+                .loginPage("/login") // see login view
+                .defaultSuccessUrl("/", true) // navigate to home page after login
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/") // navigate to home page after logout
                 .invalidateHttpSession(true)
                 .permitAll()
             );
         return http.build();
     }
 
+    /**
+     * Configures hierarchical relationships between security roles.
+     * An Admin is also considered a regular User.
+     * @return the configured RoleHierarchy implementation.
+     */
     @Bean
     RoleHierarchy roleHierarchy() {
         return RoleHierarchyImpl.withDefaultRolePrefix()
@@ -56,6 +74,10 @@ public class SecurityConfig {
             .build();
     }
 
+    /**
+     * Configures the password encoder used to encrypt passwords.
+     * @return a BCrypt password encoder instance.
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
