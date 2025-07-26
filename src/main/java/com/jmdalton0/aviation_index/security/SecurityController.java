@@ -72,7 +72,7 @@ public class SecurityController {
         } catch (UsernameAlreadyExistsException e) {
             model.addAttribute("title", "Register");
             model.addAttribute("error", e.getMessage());
-            return "register";
+            return "security/register";
         }
         return "redirect:/login";
     }
